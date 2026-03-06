@@ -33,8 +33,8 @@ const About = () => {
                 </svg>
                 +54 343 4570645
               </a>
-              <a href="mailto:hola@chapstech.cloud" className="about-email-mini">
-                hola@chapstech.cloud
+              <a href="mailto:sarchionicesar@gamil.com" className="about-email-mini">
+                sarchionicesar@gamil.com
               </a>
             </div>
           </div>

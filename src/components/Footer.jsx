@@ -46,8 +46,8 @@ const Footer = () => {
           >
             WhatsApp: +54 343 4570645
           </a>
-          <a href="mailto:hola@chapstech.cloud" className="footer-link">
-            hola@chapstech.cloud
+          <a href="mailto:sarchionicesar@gmail.com" className="footer-link">
+            sarchionicesar@gmail.com
           </a>
           <span className="footer-link no-link">Entre Ríos, Argentina</span>
         </div>
