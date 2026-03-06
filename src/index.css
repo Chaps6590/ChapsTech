@@ -193,3 +193,21 @@ img, svg { max-width: 100%; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
 
+/* ═══════════════════════════════════════
+   RESPONSIVE — BASE
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .section { padding: 72px 0; }
+  .section-header { margin-bottom: 48px; }
+  .section-title { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .section-desc { font-size: 0.97rem; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 14px; }
+  .section { padding: 56px 0; }
+  .section-header { margin-bottom: 36px; }
+  .section-badge { font-size: 0.73rem; padding: 5px 12px; }
+}
+
