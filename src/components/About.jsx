@@ -2,7 +2,7 @@ const skills = [
   { name: 'React / Next.js', pct: 92 },
   { name: 'N8N & Automatización', pct: 95 },
   { name: 'Asistentes con IA (GPT, LangChain)', pct: 90 },
-  { name: 'Node.js / Python', pct: 85 },
+  { name: 'Node.js / C#', pct: 85 },
   { name: 'Bases de datos (SQL / NoSQL)', pct: 88 },
   { name: 'Integración de APIs', pct: 94 },
 ];

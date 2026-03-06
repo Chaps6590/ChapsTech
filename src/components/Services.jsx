@@ -57,7 +57,7 @@ const services = [
     ),
     title: 'Apps con Inteligencia Artificial',
     desc: 'Aplicaciones completas que integran IA para analizar, predecir, generar contenido y automatizar decisiones de negocio.',
-    tags: ['IA', 'Python', 'React'],
+    tags: ['IA', 'C#', 'React'],
   },
   {
     icon: (
