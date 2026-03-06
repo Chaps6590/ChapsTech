@@ -78,7 +78,7 @@ const Contact = () => {
               </svg>
               <div>
                 <span className="cic-label">Email</span>
-                <span className="cic-value">sarchionicesar@gamil.com</span>
+                <span className="cic-value">sarchionicesar@gmail.com</span>
               </div>
             </div>
           </div>
