@@ -92,6 +92,46 @@ img, svg { max-width: 100%; }
   box-shadow: 0 8px 32px rgba(21, 101, 192, 0.6);
 }
 
+/* Header CTA — Hablemos special glow */
+.header-cta {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0077b6, #00b4d8, #0096c7) !important;
+  background-size: 200% 200% !important;
+  animation: ctaGradient 3s ease infinite;
+  box-shadow: 0 0 0 0 rgba(0,180,216,0.7);
+  animation: ctaGradient 3s ease infinite, ctaPulse 2.4s ease-out infinite;
+}
+.header-cta::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: rgba(255,255,255,0.18);
+  transform: skewX(-20deg);
+  animation: ctaShine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.header-cta:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 24px rgba(0,207,255,0.6), 0 8px 32px rgba(21,101,192,0.5) !important;
+}
+@keyframes ctaGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes ctaPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0,180,216,0.55); }
+  60%  { box-shadow: 0 0 0 10px rgba(0,180,216,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,180,216,0); }
+}
+@keyframes ctaShine {
+  0%   { left: -60%; }
+  50%  { left: 130%; }
+  100% { left: 130%; }
+}
+
 .btn-outline {
   border-color: var(--border-hover);
   color: var(--text-primary);

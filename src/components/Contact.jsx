@@ -46,7 +46,7 @@ const Contact = () => {
               </svg>
               <div>
                 <span className="cic-label">Ubicación</span>
-                <span className="cic-value">Entre Ríos, Argentina</span>
+                <span className="cic-value">Parana, Entre Ríos, Argentina</span>
               </div>
             </div>
 

@@ -50,14 +50,14 @@ const services = [
   {
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="5" y="2" width="14" height="20" rx="2" />
-        <path d="M12 18h.01" />
-        <path d="M9 7l2 2-2 2M13 9h2" />
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+        <path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6" />
       </svg>
     ),
-    title: 'Apps con Inteligencia Artificial',
-    desc: 'Aplicaciones completas que integran IA para analizar, predecir, generar contenido y automatizar decisiones de negocio.',
-    tags: ['IA', 'C#', 'React'],
+    title: 'Bases de Datos',
+    desc: 'Diseño, optimización y administración de bases de datos relacionales y NoSQL. Consultas complejas, índices, replicación y arquitecturas de alto rendimiento.',
+    tags: ['PostgreSQL', 'SQL Server', 'Oracle', 'MongoDB', 'Redis'],
   },
   {
     icon: (
