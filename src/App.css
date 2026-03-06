@@ -123,68 +123,69 @@
   50% { transform: translateY(-30px) scale(1.05); }
 }
 
-/* Floating code snippets */
-.floating-code {
+/* Floating service tags */
+.floating-tag {
   position: absolute;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  background: rgba(17, 17, 36, 0.8);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 16px;
-  backdrop-filter: blur(8px);
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: rgba(17, 17, 36, 0.88);
+  border: 1px solid rgba(0, 180, 216, 0.35);
+  border-radius: 50px;
+  padding: 9px 20px;
+  backdrop-filter: blur(10px);
   pointer-events: none;
   animation: floatCode 6s ease-in-out infinite;
   white-space: nowrap;
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
-.code-1 { top: 20%; right: 8%; animation-delay: 0s; }
-.code-2 { top: 65%; right: 12%; animation-delay: -2s; }
-.code-3 { top: 40%; right: 4%; animation-delay: -4s; }
-.code-kw { color: #60a5fa; }
-.code-fn { color: #34d399; }
-.code-cl { color: #93c5fd; }
-.code-cm { color: var(--text-muted); }
+/* Tags positioned relative to .hero-right — no negative overflow */
+.tag-1 { top: 5%;    left: 6%;   animation-delay: 0s; }
+.tag-2 { top: 16%;   right: 4%;  animation-delay: -1.2s; }
+.tag-3 { top: 47%;   left: 0%;   animation-delay: -2.4s; }
+.tag-4 { bottom: 22%; right: 3%; animation-delay: -3.6s; }
+.tag-5 { bottom: 6%;  left: 14%; animation-delay: -4.8s; }
 @keyframes floatCode {
-  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  0%, 100% { transform: translateY(0); opacity: 0.75; }
   50% { transform: translateY(-12px); opacity: 1; }
 }
 
 .hero-grid {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  display: flex;
   align-items: center;
+  gap: 24px;
+  width: 100%;
 }
 
-.hero-content {
+.hero-left {
+  flex: 0 0 48%;
+  max-width: 48%;
+}
+
+.hero-right {
+  flex: 1;
   position: relative;
-  z-index: 2;
-  max-width: 620px;
-}
-
-.hero-visual {
-  position: absolute;
-  right: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: floatHero 5s ease-in-out infinite;
+  min-height: 520px;
 }
-@keyframes floatHero {
-  0%, 100% { transform: translateY(-50%) rotate(-1.5deg); }
-  50% { transform: translateY(calc(-50% - 18px)) rotate(1.5deg); }
-}
+
 .hero-logo-img {
-  width: 700px;
-  max-width: 50vw;
+  width: 100%;
+  max-width: 600px;
   height: auto;
   display: block;
+  position: relative;
+  z-index: 1;
+  animation: floatHero 5s ease-in-out infinite;
   filter: drop-shadow(0 0 40px rgba(0, 207, 255, 0.35)) drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+}
+@keyframes floatHero {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-18px) rotate(1.5deg); }
 }
 
 .hero-badge {
@@ -246,45 +247,6 @@
 .stat-num { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
 .stat-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
 .stat-divider { width: 1px; height: 40px; background: var(--border); }
-
-.hero-visual {
-  position: absolute;
-  right: 6%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  animation: floatHero 5s ease-in-out infinite;
-}
-@keyframes floatHero {
-  0%, 100% { transform: translateY(-50%) rotate(-1.5deg); }
-  50% { transform: translateY(calc(-50% - 18px)) rotate(1.5deg); }
-}
-.hero-logo-card {
-  background: white;
-  border-radius: 24px;
-  padding: 28px 32px 20px;
-  box-shadow:
-    0 0 0 1px rgba(21, 101, 192, 0.15),
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(21, 101, 192, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  max-width: 320px;
-}
-.hero-logo-img {
-  width: 260px;
-  height: auto;
-  display: block;
-}
-.hero-logo-tagline {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #546e7a;
-  text-align: center;
-}
 
 /* ═══════════════════════════════════════
    SERVICES
@@ -686,7 +648,7 @@
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .hero-visual { display: none; }
+  .hero-right { display: none; }
   .floating-code { display: none; }
   .about-inner { grid-template-columns: 1fr; gap: 40px; }
   .about-card { position: static; max-width: 380px; }
@@ -713,6 +675,9 @@
   .burger { display: flex; }
   .header-cta { display: none; }
   .hero { padding: 110px 0 60px; }
+  .hero-grid { flex-direction: column; gap: 32px; }
+  .hero-left { flex: unset; max-width: 100%; }
+  .hero-right { min-height: 320px; width: 100%; }
   .hero-title { font-size: 2rem; }
   .hero-stats { gap: 20px; }
   .services-grid { grid-template-columns: 1fr; }
