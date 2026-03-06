@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -9,6 +10,54 @@ import Footer from './components/Footer';
 import './App.css';
 
 function App() {
+  const [gravity, setGravity] = useState(true);
+
+  const toggleGravity = () => {
+    if (!gravity) {
+      // Restore gravity
+      document.querySelectorAll('[data-chaos]').forEach(el => {
+        el.style.animation = '';
+        el.style.willChange = '';
+        el.removeAttribute('data-chaos');
+      });
+      document.getElementById('zg-keyframes')?.remove();
+      setGravity(true);
+    } else {
+      // Kill gravity — inject random keyframes per element
+      const targets = document.querySelectorAll(
+        '.service-card, .process-card, .hero-badge, .stat, .about-card, ' +
+        '.contact-info-card, .contact-whatsapp, .section-header, .hero-title, ' +
+        '.hero-desc, .hero-actions, .hero-stats, .techstack-item'
+      );
+      const styleEl = document.createElement('style');
+      styleEl.id = 'zg-keyframes';
+      let css = '';
+      targets.forEach((el, i) => {
+        const dur  = (1.8 + Math.random() * 3.5).toFixed(2);
+        const del  = (Math.random() * 1.8).toFixed(2);
+        const tx1  = ((Math.random() - 0.5) * 60).toFixed(1);
+        const ty1  = ((Math.random() - 0.5) * 70).toFixed(1);
+        const rot1 = ((Math.random() - 0.5) * 18).toFixed(1);
+        const sc1  = (0.9 + Math.random() * 0.25).toFixed(2);
+        const tx2  = ((Math.random() - 0.5) * 60).toFixed(1);
+        const ty2  = ((Math.random() - 0.5) * 70).toFixed(1);
+        const rot2 = ((Math.random() - 0.5) * 18).toFixed(1);
+        const sc2  = (0.9 + Math.random() * 0.25).toFixed(2);
+        css += `@keyframes zg${i}{` +
+          `0%{transform:translate(0,0) rotate(0deg) scale(1)}` +
+          `33%{transform:translate(${tx1}px,${ty1}px) rotate(${rot1}deg) scale(${sc1})}` +
+          `66%{transform:translate(${tx2}px,${ty2}px) rotate(${rot2}deg) scale(${sc2})}` +
+          `100%{transform:translate(0,0) rotate(0deg) scale(1)}}`;
+        el.style.animation = `zg${i} ${dur}s ${del}s ease-in-out infinite`;
+        el.style.willChange = 'transform';
+        el.setAttribute('data-chaos', 'true');
+      });
+      styleEl.textContent = css;
+      document.head.appendChild(styleEl);
+      setGravity(false);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -21,6 +70,16 @@ function App() {
         <Contact />
       </main>
       <Footer />
+
+      {/* Zero Gravity button */}
+      <button
+        className={`gravity-btn${gravity ? '' : ' gravity-off'}`}
+        onClick={toggleGravity}
+        title={gravity ? 'Desactivar gravedad 🚀' : 'Restaurar gravedad 🌍'}
+        aria-label="Toggle gravity"
+      >
+        {gravity ? '🚀' : '🌍'}
+      </button>
 
       {/* Floating WhatsApp button */}
       <a

@@ -830,6 +830,43 @@
 }
 
 /* ═══════════════════════════════════════
+   ZERO GRAVITY BUTTON
+═══════════════════════════════════════ */
+.gravity-btn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 999;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0d0d2a, #1a1a4e);
+  border: 2px solid rgba(120, 100, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(120, 100, 255, 0.35);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.gravity-btn:hover {
+  box-shadow: 0 8px 32px rgba(120, 100, 255, 0.6);
+  border-color: rgba(160, 140, 255, 0.75);
+}
+/* When gravity is off — the button itself rotates slowly */
+.gravity-btn.gravity-off {
+  border-color: rgba(0, 207, 255, 0.65);
+  box-shadow: 0 4px 24px rgba(0, 207, 255, 0.45);
+  animation: gravBtnOrbit 12s linear infinite;
+}
+@keyframes gravBtnOrbit {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Elements with chaos get a z-index boost so they overlap nicely */
+[data-chaos] { position: relative; z-index: 10; }
+
+/* ═══════════════════════════════════════
    FLOATING WHATSAPP BUTTON
 ═══════════════════════════════════════ */
 .wa-float {
