@@ -936,7 +936,7 @@
   .header-cta { display: none; }
 
   /* HERO */
-  .hero { padding: 100px 0 56px; }
+  .hero { min-height: unset; padding: 90px 0 48px; align-items: flex-start; }
   .hero-grid { flex-direction: column; gap: 16px; }
   .hero-left { flex: unset; max-width: 100%; text-align: center; }
   .hero-right { flex: unset; min-height: unset; width: 100%; display: flex; justify-content: center; padding: 8px 0 16px; }
