@@ -1,7 +1,45 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 const Hero = () => {
   const canvasRef = useRef(null);
+  const logoRef = useRef(null);
+  const [robotBop, setRobotBop] = useState('');
+
+  const handleRobotTap = useCallback((e) => {
+    // Pick a random reaction
+    const reactions = ['bop-spin', 'bop-bounce', 'bop-shake', 'bop-flip'];
+    const pick = reactions[Math.floor(Math.random() * reactions.length)];
+    setRobotBop(pick);
+
+    // Burst stars at tap position
+    const rect = logoRef.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const emojis = ['⚡','✨','💫','🌟','🔥','💥'];
+    for (let i = 0; i < 8; i++) {
+      const el = document.createElement('span');
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      const angle = (i / 8) * 2 * Math.PI;
+      const dist = 60 + Math.random() * 50;
+      el.style.cssText = `
+        position:fixed;
+        left:${cx}px;
+        top:${cy}px;
+        font-size:${1.2 + Math.random() * 0.8}rem;
+        pointer-events:none;
+        z-index:9999;
+        transform:translate(-50%,-50%);
+        animation:starBurst 0.7s ease-out forwards;
+        --tx:${Math.cos(angle) * dist}px;
+        --ty:${Math.sin(angle) * dist}px;
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 750);
+    }
+
+    // Clear class after animation ends
+    setTimeout(() => setRobotBop(''), 650);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -190,7 +228,14 @@ const Hero = () => {
               </div>
             </div>
 
-            <img src="/logo.png" alt="ChapsTech" className="hero-logo-img" />
+            <img
+              ref={logoRef}
+              src="/logo.png"
+              alt="ChapsTech"
+              className={`hero-logo-img${robotBop ? ' ' + robotBop : ''}`}
+              onClick={handleRobotTap}
+              style={{ cursor: 'pointer' }}
+            />
           </div>
 
         </div>

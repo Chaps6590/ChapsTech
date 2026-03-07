@@ -271,6 +271,54 @@
   50% { transform: translateY(-18px) rotate(1.5deg); }
 }
 
+/* ── Robot tap reactions ── */
+.hero-logo-img.bop-spin {
+  animation: floatHero 5s ease-in-out infinite, robotSpin 0.6s ease-out !important;
+}
+.hero-logo-img.bop-bounce {
+  animation: floatHero 5s ease-in-out infinite, robotBounce 0.6s ease-out !important;
+}
+.hero-logo-img.bop-shake {
+  animation: floatHero 5s ease-in-out infinite, robotShake 0.55s ease-out !important;
+}
+.hero-logo-img.bop-flip {
+  animation: floatHero 5s ease-in-out infinite, robotFlip 0.6s ease-out !important;
+}
+@keyframes robotSpin {
+  0%   { filter: drop-shadow(0 0 40px rgba(0,207,255,0.35)) drop-shadow(0 8px 32px rgba(0,0,0,0.5)); }
+  50%  { transform: rotate(180deg) scale(1.15); filter: drop-shadow(0 0 60px rgba(0,207,255,0.9)) brightness(1.3); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes robotBounce {
+  0%   { transform: scale(1) translateY(0); }
+  30%  { transform: scale(1.25) translateY(-30px); filter: drop-shadow(0 0 50px rgba(0,207,255,0.8)); }
+  55%  { transform: scale(0.92) translateY(6px); }
+  75%  { transform: scale(1.08) translateY(-10px); }
+  100% { transform: scale(1) translateY(0); }
+}
+@keyframes robotShake {
+  0%,100% { transform: rotate(0deg); }
+  15%  { transform: rotate(-12deg) scale(1.1); }
+  30%  { transform: rotate(12deg) scale(1.1); }
+  45%  { transform: rotate(-9deg); }
+  60%  { transform: rotate(9deg); }
+  75%  { transform: rotate(-4deg); }
+  90%  { transform: rotate(4deg); }
+}
+@keyframes robotFlip {
+  0%   { transform: scaleX(1); }
+  25%  { transform: scaleX(-1.1) scaleY(1.1); filter: drop-shadow(0 0 55px rgba(139,92,246,0.9)) hue-rotate(60deg); }
+  50%  { transform: scaleX(-1); }
+  75%  { transform: scaleX(1.05); }
+  100% { transform: scaleX(1); }
+}
+
+/* ── Star burst particles ── */
+@keyframes starBurst {
+  0%   { transform: translate(-50%,-50%) translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(-50%,-50%) translate(var(--tx),var(--ty)) scale(0.3); opacity: 0; }
+}
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
