@@ -898,8 +898,16 @@
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .hero-right { display: none; }
+  .orbit-wrapper { display: none; }
   .floating-code { display: none; }
+  .hero-right {
+    display: flex;
+    min-height: unset;
+    width: 100%;
+    justify-content: center;
+    padding: 8px 0 0;
+  }
+  .hero-logo-img { max-width: 260px; }
   .about-inner { grid-template-columns: 1fr; gap: 40px; }
   .about-card { position: static; max-width: 420px; margin: 0 auto; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -931,6 +939,8 @@
   .hero { padding: 100px 0 56px; }
   .hero-grid { flex-direction: column; gap: 0; }
   .hero-left { flex: unset; max-width: 100%; text-align: center; }
+  .hero-right { min-height: unset; }
+  .hero-logo-img { max-width: 200px; }
   .hero-badge { margin-left: auto; margin-right: auto; }
   .hero-title { font-size: clamp(1.85rem, 7vw, 2.4rem); }
   .hero-desc { font-size: 1rem; max-width: 100%; margin-left: auto; margin-right: auto; }
