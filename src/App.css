@@ -265,6 +265,8 @@
   z-index: 2;
   animation: floatHero 5s ease-in-out infinite;
   filter: drop-shadow(0 0 40px rgba(0, 207, 255, 0.35)) drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 @keyframes floatHero {
   0%, 100% { transform: translateY(0) rotate(-1.5deg); }
