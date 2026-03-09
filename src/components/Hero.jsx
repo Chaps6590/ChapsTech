@@ -4,41 +4,59 @@ const Hero = () => {
   const canvasRef = useRef(null);
   const logoRef = useRef(null);
   const [robotBop, setRobotBop] = useState('');
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef(null);
 
   const handleRobotTap = useCallback((e) => {
-    // Pick a random reaction
-    const reactions = ['bop-spin', 'bop-bounce', 'bop-shake', 'bop-flip'];
-    const pick = reactions[Math.floor(Math.random() * reactions.length)];
+    // Track rapid consecutive clicks
+    clickCountRef.current += 1;
+    clearTimeout(clickTimerRef.current);
+    clickTimerRef.current = setTimeout(() => { clickCountRef.current = 0; }, 1500);
+
+    const isAngry = clickCountRef.current >= 4;
+
+    // Pick reaction
+    let pick;
+    if (isAngry) {
+      pick = 'bop-angry';
+      clickCountRef.current = 0;
+    } else {
+      const reactions = ['bop-spin', 'bop-bounce', 'bop-shake', 'bop-flip'];
+      pick = reactions[Math.floor(Math.random() * reactions.length)];
+    }
     setRobotBop(pick);
 
-    // Burst stars at tap position
+    // Burst particles at logo center
     const rect = logoRef.current.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const emojis = ['⚡','✨','💫','🌟','🔥','💥'];
-    for (let i = 0; i < 8; i++) {
+    const emojis = isAngry
+      ? ['😡','💢','🤬','😤','⚠️','🔥']
+      : ['⚡','✨','💫','🌟','🔥','💥'];
+    const count = isAngry ? 12 : 8;
+    for (let i = 0; i < count; i++) {
       const el = document.createElement('span');
       el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      const angle = (i / 8) * 2 * Math.PI;
-      const dist = 60 + Math.random() * 50;
+      const angle = (i / count) * 2 * Math.PI;
+      const dist = (isAngry ? 80 : 60) + Math.random() * 50;
       el.style.cssText = `
         position:fixed;
         left:${cx}px;
         top:${cy}px;
-        font-size:${1.2 + Math.random() * 0.8}rem;
+        font-size:${(isAngry ? 1.5 : 1.2) + Math.random() * 0.8}rem;
         pointer-events:none;
         z-index:9999;
         transform:translate(-50%,-50%);
-        animation:starBurst 0.7s ease-out forwards;
+        animation:starBurst ${isAngry ? '0.9s' : '0.7s'} ease-out forwards;
         --tx:${Math.cos(angle) * dist}px;
         --ty:${Math.sin(angle) * dist}px;
       `;
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 750);
+      setTimeout(() => el.remove(), isAngry ? 950 : 750);
     }
 
     // Clear class after animation ends
-    setTimeout(() => setRobotBop(''), 650);
+    setTimeout(() => setRobotBop(''), isAngry ? 900 : 650);
   }, []);
 
   useEffect(() => {
