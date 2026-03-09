@@ -4,33 +4,74 @@ const Hero = () => {
   const canvasRef = useRef(null);
   const logoRef = useRef(null);
   const [robotBop, setRobotBop] = useState('');
+  const [isOnFire, setIsOnFire] = useState(false);
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef(null);
+  const fireIntervalRef = useRef(null);
+
+  const spawnFlame = useCallback(() => {
+    const rect = logoRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = rect.left + rect.width * (0.15 + Math.random() * 0.7);
+    const y = rect.bottom - rect.height * 0.15;
+    const el = document.createElement('span');
+    el.textContent = ['🔥','🔥','🔥','✨','💫'][Math.floor(Math.random() * 5)];
+    const driftX = (Math.random() - 0.5) * 60;
+    const riseY = -(70 + Math.random() * 90);
+    el.style.cssText = `
+      position:fixed;left:${x}px;top:${y}px;
+      font-size:${0.9 + Math.random() * 1.1}rem;
+      pointer-events:none;z-index:9999;
+      transform:translate(-50%,-50%);
+      animation:flameDrift ${0.7 + Math.random() * 0.6}s ease-out forwards;
+      --tx:${driftX}px;--ty:${riseY}px;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1400);
+  }, []);
+
+  useEffect(() => {
+    if (isOnFire) {
+      fireIntervalRef.current = setInterval(spawnFlame, 150);
+      const off = setTimeout(() => {
+        setIsOnFire(false);
+        clickCountRef.current = 0;
+      }, 5000);
+      return () => {
+        clearInterval(fireIntervalRef.current);
+        clearTimeout(off);
+      };
+    }
+  }, [isOnFire, spawnFlame]);
 
   const handleRobotTap = useCallback((e) => {
-    // Track rapid consecutive clicks
+    // Un click apaga el fuego si está activo
+    if (isOnFire) { setIsOnFire(false); clickCountRef.current = 0; return; }
+
     clickCountRef.current += 1;
     clearTimeout(clickTimerRef.current);
     clickTimerRef.current = setTimeout(() => { clickCountRef.current = 0; }, 1500);
 
+    const isFireTrigger = clickCountRef.current >= 5;
     const isAngry = clickCountRef.current >= 4;
 
-    // Pick reaction
     let pick;
-    if (isAngry) {
-      pick = 'bop-angry';
+    if (isFireTrigger) {
+      setIsOnFire(true);
       clickCountRef.current = 0;
+      pick = 'bop-angry';
+    } else if (isAngry) {
+      pick = 'bop-angry';
     } else {
       const reactions = ['bop-spin', 'bop-bounce', 'bop-shake', 'bop-flip'];
       pick = reactions[Math.floor(Math.random() * reactions.length)];
     }
     setRobotBop(pick);
 
-    // Burst particles at logo center
     const rect = logoRef.current.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    const emojis = isAngry
+    const emojis = isAngry || isFireTrigger
       ? ['😡','💢','🤬','😤','⚠️','🔥']
       : ['⚡','✨','💫','🌟','🔥','💥'];
     const count = isAngry ? 12 : 8;
@@ -55,9 +96,8 @@ const Hero = () => {
       setTimeout(() => el.remove(), isAngry ? 950 : 750);
     }
 
-    // Clear class after animation ends
     setTimeout(() => setRobotBop(''), isAngry ? 900 : 650);
-  }, []);
+  }, [isOnFire]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -250,7 +290,7 @@ const Hero = () => {
               ref={logoRef}
               src="/logo.png"
               alt="ChapsTech"
-              className={`hero-logo-img${robotBop ? ' ' + robotBop : ''}`}
+              className={`hero-logo-img${robotBop ? ' ' + robotBop : ''}${isOnFire ? ' on-fire' : ''}`}
               onClick={handleRobotTap}
               style={{ cursor: 'pointer' }}
             />
