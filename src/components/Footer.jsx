@@ -49,6 +49,14 @@ const Footer = () => {
           <a href="mailto:sarchionicesar@gmail.com" className="footer-link">
             sarchionicesar@gmail.com
           </a>
+          <a
+            href="https://www.instagram.com/chaps_sar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-link"
+          >
+            Instagram: @chaps_sar
+          </a>
           <span className="footer-link no-link">Entre Ríos, Argentina</span>
         </div>
       </div>
