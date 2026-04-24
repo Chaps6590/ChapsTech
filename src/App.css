@@ -256,6 +256,13 @@
   min-height: 520px;
 }
 
+.hero-video-stack {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+}
+
 .hero-logo-img {
   width: 100%;
   max-width: 600px;
@@ -267,6 +274,20 @@
   filter: drop-shadow(0 0 40px rgba(0, 207, 255, 0.35)) drop-shadow(0 8px 32px rgba(0,0,0,0.5));
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+}
+
+.hero-logo-img.video-panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.85s ease;
+}
+
+.hero-logo-img.video-panel.active {
+  opacity: 1;
 }
 @keyframes floatHero {
   0%, 100% { transform: translateY(0) rotate(-1.5deg); }

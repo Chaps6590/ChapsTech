@@ -1,10 +1,20 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
+const videoSources = ['/robot.webm', '/robot1.webm', '/robot2.webm'];
+
 const Hero = () => {
   const canvasRef = useRef(null);
   const logoRef = useRef(null);
+  const videoRefA = useRef(null);
+  const videoRefB = useRef(null);
+  const scheduleSwitchRef = useRef(null);
+  const transitionTimeoutRef = useRef(null);
+  const activeIndexRef = useRef(Math.floor(Math.random() * videoSources.length));
+  const activeVideoRef = useRef(0);
   const [robotBop, setRobotBop] = useState('');
   const [isOnFire, setIsOnFire] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(activeIndexRef.current);
+  const [activeVideo, setActiveVideo] = useState(activeVideoRef.current);
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef(null);
   const fireIntervalRef = useRef(null);
@@ -98,6 +108,68 @@ const Hero = () => {
 
     setTimeout(() => setRobotBop(''), isAngry ? 900 : 650);
   }, [isOnFire]);
+
+  const prepareVideo = useCallback((videoEl, source) => {
+    if (!videoEl) return;
+    videoEl.pause();
+    videoEl.src = source;
+    videoEl.load();
+    const promise = videoEl.play();
+    if (promise && typeof promise.catch === 'function') {
+      promise.catch(() => {});
+    }
+  }, []);
+
+  const pickNextIndex = useCallback((currentIndex) => {
+    let next = Math.floor(Math.random() * videoSources.length);
+    if (next === currentIndex) {
+      next = (next + 1) % videoSources.length;
+    }
+    return next;
+  }, []);
+
+  const scheduleNextTransition = useCallback((transitionFn) => {
+    clearTimeout(scheduleSwitchRef.current);
+    scheduleSwitchRef.current = window.setTimeout(transitionFn, 12000 + Math.random() * 8000);
+  }, []);
+
+  const runTransition = useCallback(() => {
+    const currentIndex = activeIndexRef.current;
+    const nextIndex = pickNextIndex(currentIndex);
+    const nextVideoNumber = 1 - activeVideoRef.current;
+    const currentVideoEl = activeVideoRef.current === 0 ? videoRefA.current : videoRefB.current;
+    const nextVideoEl = nextVideoNumber === 0 ? videoRefA.current : videoRefB.current;
+    if (!nextVideoEl) return;
+
+    prepareVideo(nextVideoEl, videoSources[nextIndex]);
+    currentVideoEl?.classList.remove('active');
+    nextVideoEl.classList.add('active');
+
+    transitionTimeoutRef.current = window.setTimeout(() => {
+      activeVideoRef.current = nextVideoNumber;
+      setActiveVideo(nextVideoNumber);
+      activeIndexRef.current = nextIndex;
+      setActiveIndex(nextIndex);
+      scheduleNextTransition(runTransition);
+    }, 850);
+  }, [pickNextIndex, prepareVideo, scheduleNextTransition]);
+
+  useEffect(() => {
+    const activeVideoEl = activeVideoRef.current === 0 ? videoRefA.current : videoRefB.current;
+    const inactiveVideoEl = activeVideoRef.current === 0 ? videoRefB.current : videoRefA.current;
+    prepareVideo(activeVideoEl, videoSources[activeIndexRef.current]);
+    if (inactiveVideoEl) {
+      prepareVideo(inactiveVideoEl, videoSources[pickNextIndex(activeIndexRef.current)]);
+      inactiveVideoEl.classList.remove('active');
+    }
+    activeVideoEl?.classList.add('active');
+    scheduleNextTransition(runTransition);
+
+    return () => {
+      clearTimeout(scheduleSwitchRef.current);
+      clearTimeout(transitionTimeoutRef.current);
+    };
+  }, [pickNextIndex, prepareVideo, runTransition, scheduleNextTransition]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -286,18 +358,33 @@ const Hero = () => {
               </div>
             </div>
 
-            <video
+            <div
               ref={logoRef}
-              className={`hero-logo-img${robotBop ? ' ' + robotBop : ''}${isOnFire ? ' on-fire' : ''}`}
+              className="hero-video-stack"
               onClick={handleRobotTap}
               style={{ cursor: 'pointer' }}
-              autoPlay
-              loop
-              muted
-              playsInline
             >
-              <source src="/robot.webm" type="video/webm" />
-            </video>
+              <video
+                ref={videoRefA}
+                className={`hero-logo-img video-panel ${activeVideo === 0 ? 'active' : ''}${robotBop ? ' ' + robotBop : ''}${isOnFire ? ' on-fire' : ''}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+              />
+              <video
+                ref={videoRefB}
+                className={`hero-logo-img video-panel ${activeVideo === 1 ? 'active' : ''}${robotBop ? ' ' + robotBop : ''}${isOnFire ? ' on-fire' : ''}`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+              />
+            </div>
           </div>
 
         </div>
