@@ -286,14 +286,18 @@ const Hero = () => {
               </div>
             </div>
 
-            <img
+            <video
               ref={logoRef}
-              src="/logo.png"
-              alt="ChapsTech"
               className={`hero-logo-img${robotBop ? ' ' + robotBop : ''}${isOnFire ? ' on-fire' : ''}`}
               onClick={handleRobotTap}
               style={{ cursor: 'pointer' }}
-            />
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/robot.webm" type="video/webm" />
+            </video>
           </div>
 
         </div>
