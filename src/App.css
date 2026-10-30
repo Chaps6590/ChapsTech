@@ -1168,6 +1168,8 @@
   background: var(--rd-pared);
 }
 .rd-escena *, .rd-escena *::before, .rd-escena *::after { box-sizing: border-box; }
+/* sin barra de navegación mientras se ve la puerta (la pone Intro.jsx) */
+.en-intro .header { opacity: 0; transform: translateY(-100%); pointer-events: none; }
 
 /* Todas las medidas en px del escenario de 1280 × 800: el vano va de
    x 535 a 745 y de y 190 a 590; el ojo está en (640, 330). */

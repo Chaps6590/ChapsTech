@@ -17,11 +17,20 @@ const irAlHero = () => {
 
 const Intro = () => {
   const [saltar] = useState(debeSaltar);
+  const seccionRef = useRef(null);
   const escenarioRef = useRef(null);
 
   useEffect(() => {
     if (saltar) return;
     try { sessionStorage.setItem(SEEN_KEY, '1'); } catch { /* modo privado */ }
+
+    // mientras la puerta ocupa la pantalla, la barra de navegación se esconde (ver .en-intro en App.css)
+    const raiz = document.documentElement;
+    const observador = new IntersectionObserver(
+      ([entrada]) => raiz.classList.toggle('en-intro', entrada.intersectionRatio > 0.5),
+      { threshold: [0, 0.5, 1] },
+    );
+    observador.observe(seccionRef.current);
 
     let timer = 0;
     const puerta = Rendija(escenarioRef.current, {
@@ -31,13 +40,18 @@ const Intro = () => {
         if (abierta) { track('intro_puerta_abierta'); timer = window.setTimeout(irAlHero, 1300); }
       },
     });
-    return () => { clearTimeout(timer); puerta.destroy(); };
+    return () => {
+      clearTimeout(timer);
+      puerta.destroy();
+      observador.disconnect();
+      raiz.classList.remove('en-intro');
+    };
   }, [saltar]);
 
   if (saltar) return null;
 
   return (
-    <section id="intro" className="rd-escena" aria-label="Entrada">
+    <section id="intro" className="rd-escena" aria-label="Entrada" ref={seccionRef}>
       <div className="rd-escenario" ref={escenarioRef}>
         <div className="rd-mundo" aria-hidden="true">
           <div className="rd-cuarto-fondo"><img src="/chapstech-v2.png" alt="" draggable="false" /></div>
