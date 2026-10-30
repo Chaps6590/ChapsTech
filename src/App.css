@@ -1135,17 +1135,6 @@
   opacity: 0;
   pointer-events: none;
 }
-.mascot-body {
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  pointer-events: auto;
-  -webkit-tap-highlight-color: transparent;
-}
-.mascot-body:focus-visible { outline: 2px solid var(--cyan-light); outline-offset: 4px; border-radius: 12px; }
 .mascot-inner {
   width: 100%;
   will-change: transform;
@@ -1154,54 +1143,8 @@
 .mascot-inner canvas { display: block; width: 100%; aspect-ratio: 672 / 720; }
 .mascot-video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
-.mascot-bubble {
-  position: absolute;
-  right: calc(100% - 6px);
-  bottom: 38%;
-  width: max-content;
-  max-width: min(270px, calc(100vw - 150px));
-  padding: 14px 34px 14px 16px;
-  border-radius: 16px 16px 4px 16px;
-  background: rgba(10, 12, 28, 0.94);
-  border: 1px solid rgba(0, 207, 255, 0.35);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(0, 180, 216, 0.12);
-  backdrop-filter: blur(12px);
-  pointer-events: auto;
-  visibility: hidden;
-  opacity: 0;
-}
-.mascot-tag {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cyan-light);
-}
-.mascot-text { position: relative; margin: 0; font-size: 0.86rem; line-height: 1.45; color: #e6e9f5; }
-.mascot-ghost { visibility: hidden; }
-.mascot-typed { position: absolute; inset: 0; }
-.mascot-close {
-  position: absolute;
-  top: 6px;
-  right: 8px;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font-size: 1.2rem;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.55);
-  cursor: pointer;
-}
-.mascot-close:hover { color: #fff; }
-
 @media (max-width: 640px) {
   .mascot { right: 4px; bottom: 78px; width: 104px; }
-  .mascot-bubble { max-width: calc(100vw - 124px); padding: 12px 30px 12px 14px; }
-  .mascot-text { font-size: 0.8rem; }
 }
 
 /* ═══════════════════════════════════════
