@@ -1,0 +1,113 @@
+/* Rendija · Moxen — los estilos del efecto y de la demostración. */
+:root {
+  --rd-fondo: #0a0a0a;
+  --rd-texto: #f4f4f4;
+  --rd-suave: rgba(255, 255, 255, .42);
+  --rd-pared: #0d0d0d;
+  --rd-marco: #161616;
+  --rd-puerta: #1b1b1b;
+  --rd-cuarto: #f4f4f2;            /* la habitación de atrás, encendida */
+  --rd-cuarto-suelo: #d8d8d5;
+  --rd-cuarto-texto: #121212;
+  --rd-luz: 255, 255, 255;         /* el color de la luz que sale (lo lee rendija.js) */
+  --rd-mezcla: screen;
+}
+/* En claro todo se da vuelta: la habitación de atrás está a oscuras y lo
+   que sale por la puerta es sombra. */
+:root[data-tema="claro"] {
+  --rd-fondo: #eeeeee;
+  --rd-texto: #0a0a0a;
+  --rd-suave: rgba(0, 0, 0, .45);
+  --rd-pared: #ececec;
+  --rd-marco: #e2e2e2;
+  --rd-puerta: #f7f7f7;
+  --rd-cuarto: #0e0e0e;
+  --rd-cuarto-suelo: #1c1c1c;
+  --rd-cuarto-texto: #e8e8e8;
+  --rd-luz: 0, 0, 0;
+  --rd-mezcla: multiply;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--rd-fondo); color: var(--rd-texto); overflow: hidden; }
+body { font-family: "General Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+/* ── el efecto ─────────────────────────────────────────────────────── */
+/* Todas las medidas en px del escenario de 1280 × 800: el vano va de
+   x 535 a 745 y de y 190 a 590; el ojo está en (640, 330). */
+.rd-escenario { position: absolute; left: 50%; top: 50%; width: 1280px; height: 800px; margin: -400px 0 0 -640px; transform-origin: 50% 50%; }
+.rd-mundo {
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  perspective: 900px; perspective-origin: 640px 330px;
+}
+.rd-mundo > * { position: absolute; transform-style: preserve-3d; }
+.rd-pared {
+  left: -600px; top: -500px; width: 2480px; height: 1900px; background: var(--rd-pared);
+  /* el vano, recortado con una máscara: de una pieza no quedan juntas por
+     donde se cuele la habitación */
+  -webkit-mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0) 1135px 690px / 210px 400px no-repeat;
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) exclude, linear-gradient(#000 0 0) 1135px 690px / 210px 400px no-repeat;
+}
+
+/* el grosor del muro, 26 px, con la luz de la habitación sobre él */
+.rd-jamba { background: linear-gradient(90deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 55%, var(--rd-marco))); }
+.rd-jamba-izq { left: 535px; top: 190px; width: 26px; height: 400px; transform-origin: 0 50%; transform: rotateY(90deg); }
+.rd-jamba-der { left: 719px; top: 190px; width: 26px; height: 400px; transform-origin: 100% 50%; transform: rotateY(-90deg); background: linear-gradient(270deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 55%, var(--rd-marco))); }
+.rd-dintel { left: 535px; top: 190px; width: 210px; height: 26px; transform-origin: 50% 0; transform: rotateX(-90deg); background: linear-gradient(180deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 40%, var(--rd-marco))); }
+.rd-umbral { left: 535px; top: 564px; width: 210px; height: 26px; transform-origin: 50% 100%; transform: rotateX(90deg); background: linear-gradient(0deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 70%, var(--rd-marco))); }
+/* el marco: una moldura alrededor del vano */
+.rd-marco {
+  left: 517px; top: 172px; width: 246px; height: 418px; transform: translateZ(1px); pointer-events: none;
+  border: 18px solid var(--rd-marco); border-bottom: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 0 0 1px rgba(127, 127, 127, .08);
+}
+
+/* La habitación de atrás: el fondo a 420 px y el suelo que llega hasta él. */
+.rd-cuarto-fondo {
+  left: 240px; top: -60px; width: 800px; height: 860px; transform: translateZ(-420px);
+  background: radial-gradient(50% 45% at 50% 40%, var(--rd-cuarto), color-mix(in srgb, var(--rd-cuarto) 82%, #888));
+  display: grid; place-items: center;     /* la palabra, corrida a la derecha: la puerta abierta tapa la izquierda */
+}
+.rd-cuarto-fondo p { margin: 0 0 60px 70px; font-size: 104px; font-weight: 600; letter-spacing: -.05em; color: var(--rd-cuarto-texto); }
+.rd-cuarto-suelo {
+  left: 240px; top: 170px; width: 800px; height: 420px; transform-origin: 50% 100%;
+  transform: translateZ(-3px) rotateX(90deg);     /* un pelo detrás de la pared: si no, su borde asoma por delante */
+  background: linear-gradient(0deg, var(--rd-cuarto-suelo), var(--rd-cuarto));
+}
+
+/* la puerta: gira por la izquierda hacia dentro (rendija.js pone --rd-giro) */
+.rd-puerta {
+  left: 535px; top: 190px; width: 210px; height: 396px; transform-origin: 0 50%;
+  transform: translateZ(-26px) rotateY(var(--rd-giro, 0deg));
+  background: var(--rd-puerta); display: flex; flex-direction: column; gap: 18px; padding: 26px 24px;
+  box-shadow: inset 0 0 0 1px rgba(127, 127, 127, .08);
+}
+/* la cara de la puerta se apaga al girar: deja de mirar hacia nosotros */
+.rd-puerta::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--rd-apaga, 0); pointer-events: none; }
+:root[data-tema="claro"] .rd-puerta::after { background: #8a8a8a; }
+.rd-tablero { flex: 1; border-radius: 2px; box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .45), inset -1px -1px 0 rgba(255, 255, 255, .06); }
+.rd-tablero:first-child { flex: .7; }
+:root[data-tema="claro"] .rd-tablero { box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .12), inset -1px -1px 0 #fff; }
+.rd-pomo {
+  position: absolute; right: 20px; top: 208px; width: 15px; height: 15px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fafafa, #8c8c8c 55%, #3a3a3a); box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
+}
+/* el canto, 8 px de grueso: se ilumina con la luz de dentro al abrir */
+.rd-canto {
+  position: absolute; left: 100%; top: 0; width: 8px; height: 100%; transform-origin: 0 50%; transform: rotateY(90deg);
+  background: color-mix(in srgb, var(--rd-cuarto) calc(var(--rd-ilumina, 0) * 80%), var(--rd-puerta));
+}
+
+/* la luz que sale, encima de todo: suma (o resta, en claro) */
+/* más grande que el escenario: la luz del suelo llega hasta el borde de la pantalla */
+.rd-luz { position: absolute; left: -400px; top: -200px; width: 2080px; height: 1400px; pointer-events: none; mix-blend-mode: var(--rd-mezcla); }
+.rd-tirador {
+  position: absolute; left: 535px; top: 190px; width: 210px; height: 400px; padding: 0; border: 0; background: none;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.rd-tirador:focus-visible { outline: 2px solid var(--rd-suave); outline-offset: 24px; }
+
+/* ── la demostración ───────────────────────────────────────────────── */
+.rd-escena { position: relative; height: 100%; display: grid; place-items: center; overflow: hidden; background: var(--rd-pared); }
+.rd-pista { position: absolute; left: 0; right: 0; bottom: 2.2rem; margin: 0; text-align: center; color: var(--rd-suave); font-size: .95rem; z-index: 2; }

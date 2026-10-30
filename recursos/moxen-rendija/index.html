@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rendija · Moxen</title>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600&display=swap">
+<link rel="stylesheet" href="rendija.css">
+<!-- ?tema=claro para verla sobre fondo claro -->
+<script>if (/[?&]tema=claro/.test(location.search)) document.documentElement.dataset.tema = 'claro';</script>
+</head>
+<body>
+  <main class="rd-escena">
+    <!-- data-rendija: el escenario de 1280 × 800 (rendija.js lo escala).
+         Dentro, un mundo en 3D: la pared con su vano, el grosor del muro,
+         la habitación iluminada detrás y la puerta, que gira hacia dentro -->
+    <div class="rd-escenario" data-rendija>
+      <div class="rd-mundo" aria-hidden="true">
+        <!-- la habitación de atrás: el fondo y el suelo -->
+        <div class="rd-cuarto-fondo"><p>Pasa.</p></div>
+        <div class="rd-cuarto-suelo"></div>
+        <!-- la pared: una sola pieza con el vano recortado -->
+        <div class="rd-pared"></div>
+        <!-- el grosor del muro: jambas, dintel y umbral -->
+        <div class="rd-jamba rd-jamba-izq"></div>
+        <div class="rd-jamba rd-jamba-der"></div>
+        <div class="rd-jamba rd-dintel"></div>
+        <div class="rd-jamba rd-umbral"></div>
+        <div class="rd-marco"></div>
+        <!-- la puerta, con su canto y su pomo -->
+        <div class="rd-puerta">
+          <span class="rd-tablero"></span><span class="rd-tablero"></span>
+          <span class="rd-pomo"></span>
+          <span class="rd-canto"></span>
+        </div>
+      </div>
+      <!-- la luz que sale: en el suelo y en el aire (rendija.js la dibuja) -->
+      <canvas class="rd-luz"></canvas>
+      <!-- lo que se toca: un botón del tamaño del vano -->
+      <button class="rd-tirador" type="button" aria-pressed="false" aria-label="Abrir la puerta"></button>
+    </div>
+    <p class="rd-pista">Haz clic en la puerta.</p>
+  </main>
+
+  <script src="rendija.js"></script>
+  <script>Rendija(document.querySelector('[data-rendija]'));</script>
+</body>
+</html>
