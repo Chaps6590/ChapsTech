@@ -1,0 +1,286 @@
+- generic [ref=f4e2]:
+  - banner [ref=f4e3]:
+    - generic [ref=f4e4]:
+      - link [ref=f4e5] [cursor=pointer]:
+        - /url: "#inicio"
+        - img "ChapsTech" [ref=f4e6]
+      - navigation [ref=f4e7]:
+        - link "Inicio" [ref=f4e8] [cursor=pointer]:
+          - /url: "#inicio"
+        - link "Servicios" [ref=f4e9] [cursor=pointer]:
+          - /url: "#servicios"
+        - link "Sobre mí" [ref=f4e10] [cursor=pointer]:
+          - /url: "#sobre-mi"
+        - link "Contacto" [ref=f4e11] [cursor=pointer]:
+          - /url: "#contacto"
+      - link "Hablemos 💬" [ref=f4e12] [cursor=pointer]:
+        - /url: https://wa.me/5493434570645
+  - main [ref=f4e13]:
+    - generic [ref=f4e16]:
+      - generic [ref=f4e17]:
+        - generic [ref=f4e18]: Disponible para proyectos · Argentina
+        - heading "Transformo ideas en Soluciones digitales" [level=1] [ref=f4e20]:
+          - generic [ref=f4e21]:
+            - generic [ref=f4e22]: Transformo
+            - generic [ref=f4e23]: ideas
+            - generic [ref=f4e24]: en
+          - generic [ref=f4e25]: Soluciones digitales
+        - paragraph [ref=f4e27]:
+          - text: Soy
+          - strong [ref=f4e28]: Cesar Sarchioni
+          - text: ", desarrollador especializado en webs, sistemas internos, bots con N8N y asistentes con inteligencia artificial. Construyo herramientas que automatizan, escalan y hacen crecer tu negocio."
+        - generic [ref=f4e29]:
+          - link "Ver mis servicios" [ref=f4e30] [cursor=pointer]:
+            - /url: "#servicios"
+          - link "WhatsApp" [ref=f4e31] [cursor=pointer]:
+            - /url: https://wa.me/5493434570645
+        - generic [ref=f4e34]:
+          - generic [ref=f4e35]:
+            - generic [ref=f4e36]: "+50"
+            - generic [ref=f4e37]: Proyectos
+          - generic [ref=f4e39]:
+            - generic [ref=f4e40]: "+10"
+            - generic [ref=f4e41]: Años de experiencia
+          - generic [ref=f4e43]:
+            - generic [ref=f4e44]: Lic.
+            - generic [ref=f4e45]: Sistemas de la Información
+      - generic [ref=f4e46]:
+        - generic:
+          - generic:
+            - generic:
+              - generic: Sitios Web
+              - generic: Diseño moderno & rápido
+        - generic:
+          - generic:
+            - generic:
+              - generic: Asistentes de IA
+              - generic: Bots inteligentes 24/7
+        - generic:
+          - generic:
+            - generic:
+              - generic: Chatbots
+              - generic: Atención automatizada
+        - generic:
+          - generic:
+            - generic:
+              - generic: Call Center
+              - generic: Voz + IA integrada
+        - generic:
+          - generic:
+            - generic:
+              - generic: Redes Sociales
+              - generic: Contenido & automatización
+        - generic [ref=f4e47] [cursor=pointer]
+    - generic [ref=f4e51]:
+      - paragraph [ref=f4e52]: Stack tecnológico
+      - generic [ref=f4e54]:
+        - generic [ref=f4e55]: React
+        - generic [ref=f4e56]: Next.js
+        - generic [ref=f4e57]: Node.js
+        - generic [ref=f4e58]: C#
+        - generic [ref=f4e59]: .NET
+        - generic [ref=f4e60]: PostgreSQL
+        - generic [ref=f4e61]: SQL Server
+        - generic [ref=f4e62]: Oracle
+        - generic [ref=f4e63]: MongoDB
+        - generic [ref=f4e64]: Redis
+        - generic [ref=f4e65]: N8N
+        - generic [ref=f4e66]: C#
+        - generic [ref=f4e67]: Docker
+        - generic [ref=f4e68]: REST APIs
+        - generic [ref=f4e69]: GPT-4
+        - generic [ref=f4e70]: LangChain
+        - generic [ref=f4e71]: TypeScript
+        - generic [ref=f4e72]: Tailwind CSS
+        - generic [ref=f4e73]: Git
+        - generic [ref=f4e74]: Azure
+        - generic [ref=f4e75]: React
+        - generic [ref=f4e76]: Next.js
+        - generic [ref=f4e77]: Node.js
+        - generic [ref=f4e78]: C#
+        - generic [ref=f4e79]: .NET
+        - generic [ref=f4e80]: PostgreSQL
+        - generic [ref=f4e81]: SQL Server
+        - generic [ref=f4e82]: Oracle
+        - generic [ref=f4e83]: MongoDB
+        - generic [ref=f4e84]: Redis
+        - generic [ref=f4e85]: N8N
+        - generic [ref=f4e86]: C#
+        - generic [ref=f4e87]: Docker
+        - generic [ref=f4e88]: REST APIs
+        - generic [ref=f4e89]: GPT-4
+        - generic [ref=f4e90]: LangChain
+        - generic [ref=f4e91]: TypeScript
+        - generic [ref=f4e92]: Tailwind CSS
+        - generic [ref=f4e93]: Git
+        - generic [ref=f4e94]: Azure
+    - generic [ref=f4e96]:
+      - generic [ref=f4e97]:
+        - generic [ref=f4e98]: Lo que hago
+        - heading "Servicios que transforman tu negocio" [level=2] [ref=f4e99]
+        - paragraph [ref=f4e100]: Combino desarrollo moderno con inteligencia artificial para crear soluciones que realmente funcionan y hacen crecer tu empresa.
+      - generic [ref=f4e101]:
+        - generic [ref=f4e102]:
+          - heading "Páginas Web & Landings" [level=3] [ref=f4e108]
+          - paragraph [ref=f4e109]: Sitios modernos, rápidos y responsivos. Desde landings de alto impacto hasta portales completos, optimizados para convertir.
+          - generic [ref=f4e110]:
+            - generic [ref=f4e111]: React
+            - generic [ref=f4e112]: Next.js
+            - generic [ref=f4e113]: SEO
+        - generic [ref=f4e114]:
+          - heading "Sistemas Internos" [level=3] [ref=f4e120]
+          - paragraph [ref=f4e121]: Paneles de control, CRMs, ERPs y dashboards a medida. Optimizo los procesos de tu negocio con tecnología propia.
+          - generic [ref=f4e122]:
+            - generic [ref=f4e123]: Dashboard
+            - generic [ref=f4e124]: APIs
+            - generic [ref=f4e125]: DB
+        - generic [ref=f4e126]:
+          - heading "Bots con N8N" [level=3] [ref=f4e133]
+          - paragraph [ref=f4e134]: Automatizaciones y bots inteligentes usando N8N. Conecta APIs, procesa datos y elimina tareas manuales de tu operación.
+          - generic [ref=f4e135]:
+            - generic [ref=f4e136]: N8N
+            - generic [ref=f4e137]: Webhooks
+            - generic [ref=f4e138]: APIs
+        - generic [ref=f4e139]:
+          - heading "Asistentes con IA" [level=3] [ref=f4e144]
+          - paragraph [ref=f4e145]: Chatbots y asistentes virtuales entrenados con tu información. Atención 24/7, respuestas precisas y completamente personalizados.
+          - generic [ref=f4e146]:
+            - generic [ref=f4e147]: GPT
+            - generic [ref=f4e148]: LangChain
+            - generic [ref=f4e149]: RAG
+        - generic [ref=f4e150]:
+          - heading "Bases de Datos" [level=3] [ref=f4e156]
+          - paragraph [ref=f4e157]: Diseño, optimización y administración de bases de datos relacionales y NoSQL. Consultas complejas, índices, replicación y arquitecturas de alto rendimiento.
+          - generic [ref=f4e158]:
+            - generic [ref=f4e159]: PostgreSQL
+            - generic [ref=f4e160]: SQL Server
+            - generic [ref=f4e161]: Oracle
+            - generic [ref=f4e162]: MongoDB
+            - generic [ref=f4e163]: Redis
+        - generic [ref=f4e164]:
+          - heading "Automatización & Workflows" [level=3] [ref=f4e168]
+          - paragraph [ref=f4e169]: "Diseño flujos de trabajo que conectan tus herramientas favoritas: CRMs, e-commerce, redes sociales, correo y más."
+          - generic [ref=f4e170]:
+            - generic [ref=f4e171]: Zapier
+            - generic [ref=f4e172]: N8N
+            - generic [ref=f4e173]: Make
+    - generic [ref=f4e175]:
+      - generic [ref=f4e176]:
+        - generic [ref=f4e177]: Metodología
+        - heading "Cómo trabajo con vos" [level=2] [ref=f4e178]
+        - paragraph [ref=f4e179]: Un proceso claro, transparente y orientado a resultados. Sin vueltas.
+      - generic [ref=f4e180]:
+        - generic [ref=f4e181]:
+          - generic [ref=f4e182]: "01"
+          - heading "Consulta inicial" [level=3] [ref=f4e186]
+          - paragraph [ref=f4e187]: Me contás tu idea o problema. Analizamos juntos qué necesitás y si somos la combinación correcta. Sin costo, sin compromiso.
+        - generic [ref=f4e188]:
+          - generic [ref=f4e189]: "02"
+          - heading "Propuesta & presupuesto" [level=3] [ref=f4e194]
+          - paragraph [ref=f4e195]: Te presento una propuesta clara con alcance, tiempos y precio. Sin sorpresas ni letras chicas. Ajustamos hasta que quede perfecto.
+        - generic [ref=f4e196]:
+          - generic [ref=f4e197]: "03"
+          - heading "Desarrollo iterativo" [level=3] [ref=f4e202]
+          - paragraph [ref=f4e203]: Trabajo en sprints cortos con entregas parciales. Podés ver el avance, dar feedback y ajustar el rumbo en tiempo real.
+        - generic [ref=f4e204]:
+          - generic [ref=f4e205]: "04"
+          - heading "Entrega & soporte" [level=3] [ref=f4e210]
+          - paragraph [ref=f4e211]: Desplegamos el proyecto, te enseño a usarlo y quedo disponible para ajustes. El éxito del producto es mi meta, no solo la entrega.
+    - generic [ref=f4e213]:
+      - generic [ref=f4e215]:
+        - img "Cesar Sarchioni" [ref=f4e217]
+        - heading "Cesar Sarchioni" [level=3] [ref=f4e218]
+        - paragraph [ref=f4e219]: Full-Stack Developer & AI Builder
+        - generic [ref=f4e220]: Argentina — Entre Ríos
+        - generic [ref=f4e224]:
+          - link "+54 343 4570645" [ref=f4e225] [cursor=pointer]:
+            - /url: https://wa.me/5493434570645
+          - link "sarchionicesar@gmail.com" [ref=f4e228] [cursor=pointer]:
+            - /url: mailto:sarchionicesar@gmail.com
+      - generic [ref=f4e229]:
+        - generic [ref=f4e230]: Sobre mí
+        - heading "El developer detrás de ChapsTech" [level=2] [ref=f4e231]
+        - paragraph [ref=f4e232]: Soy Cesar Sarchioni, desarrollador apasionado por transformar ideas en productos digitales reales. Trabajo en el cruce entre el desarrollo web tradicional y las nuevas tecnologías de inteligencia artificial.
+        - paragraph [ref=f4e233]:
+          - text: Me especialicé en construir
+          - strong [ref=f4e234]: sistemas que automatizan y escalan
+          - text: ": desde bots inteligentes con N8N hasta asistentes conversacionales con GPT, pasando por sistemas internos, aplicaciones web y apps que integran IA de forma natural."
+        - paragraph [ref=f4e235]: Cada proyecto que tomo es una oportunidad de resolver un problema real con la mejor tecnología disponible. Trabajo de forma directa, transparente y enfocado en resultados.
+        - generic [ref=f4e236]:
+          - generic [ref=f4e238]:
+            - generic [ref=f4e239]: React / Next.js
+            - generic [ref=f4e240]: 92%
+          - generic [ref=f4e244]:
+            - generic [ref=f4e245]: N8N & Automatización
+            - generic [ref=f4e246]: 95%
+          - generic [ref=f4e250]:
+            - generic [ref=f4e251]: Asistentes con IA (GPT, LangChain)
+            - generic [ref=f4e252]: 90%
+          - generic [ref=f4e256]:
+            - generic [ref=f4e257]: Node.js / C#
+            - generic [ref=f4e258]: 85%
+          - generic [ref=f4e262]:
+            - generic [ref=f4e263]: Bases de datos (SQL / NoSQL)
+            - generic [ref=f4e264]: 88%
+          - generic [ref=f4e268]:
+            - generic [ref=f4e269]: Integración de APIs
+            - generic [ref=f4e270]: 94%
+    - generic [ref=f4e274]:
+      - generic [ref=f4e275]:
+        - generic [ref=f4e276]: Contacto
+        - heading "¿Tenés un proyecto en mente? Hablemos hoy" [level=2] [ref=f4e277]: ¿Tenés un proyecto en mente?Hablemos hoy
+        - paragraph [ref=f4e278]: Contame tu idea y te respondo rápido. La primer consulta es sin costo.
+      - generic [ref=f4e279]:
+        - link "Escribime por WhatsApp +54 343 4570645" [ref=f4e280] [cursor=pointer]:
+          - /url: https://wa.me/5493434570645?text=Hola%20Cesar!%20Vi%20tu%20web%20ChapsTech%20y%20me%20interesa%20hablar%20sobre%20un%20proyecto.
+          - generic [ref=f4e284]:
+            - generic [ref=f4e285]: Escribime por WhatsApp
+            - text: +54 343 4570645
+        - generic [ref=f4e288]:
+          - generic [ref=f4e293]:
+            - generic [ref=f4e294]: Ubicación
+            - generic [ref=f4e295]: Parana, Entre Ríos, Argentina
+          - generic [ref=f4e300]:
+            - generic [ref=f4e301]: Disponibilidad
+            - generic [ref=f4e302]: Lun–Vie · 9 a 20 hs
+          - generic [ref=f4e306]:
+            - generic [ref=f4e307]: WhatsApp
+            - generic [ref=f4e308]: +54 343 4570645
+          - generic [ref=f4e313]:
+            - generic [ref=f4e314]: Email
+            - generic [ref=f4e315]: sarchionicesar@gmail.com
+          - link "Instagram @chaps_sar" [ref=f4e316] [cursor=pointer]:
+            - /url: https://www.instagram.com/chaps_sar
+            - generic [ref=f4e320]:
+              - generic [ref=f4e321]: Instagram
+              - generic [ref=f4e322]: "@chaps_sar"
+  - contentinfo [ref=f4e323]:
+    - generic [ref=f4e324]:
+      - generic [ref=f4e325]:
+        - img "ChapsTech" [ref=f4e326]
+        - paragraph [ref=f4e327]: Desarrollo web, bots e IA para negocios que quieren crecer.
+      - generic [ref=f4e328]:
+        - generic [ref=f4e329]: Navegación
+        - link "Inicio" [ref=f4e330] [cursor=pointer]:
+          - /url: "#inicio"
+        - link "Servicios" [ref=f4e331] [cursor=pointer]:
+          - /url: "#servicios"
+        - link "Sobre mí" [ref=f4e332] [cursor=pointer]:
+          - /url: "#sobre-mi"
+        - link "Contacto" [ref=f4e333] [cursor=pointer]:
+          - /url: "#contacto"
+      - generic [ref=f4e334]:
+        - generic [ref=f4e335]: Contacto directo
+        - 'link "WhatsApp: +54 343 4570645" [ref=f4e336] [cursor=pointer]':
+          - /url: https://wa.me/5493434570645
+        - link "sarchionicesar@gmail.com" [ref=f4e337] [cursor=pointer]:
+          - /url: mailto:sarchionicesar@gmail.com
+        - 'link "Instagram: @chaps_sar" [ref=f4e338] [cursor=pointer]':
+          - /url: https://www.instagram.com/chaps_sar
+        - generic [ref=f4e339]: Entre Ríos, Argentina
+    - generic [ref=f4e340]:
+      - generic [ref=f4e341]: © 2026 ChapsTech · Cesar Sarchioni. Todos los derechos reservados.
+      - generic [ref=f4e342]: chapstech.cloud
+  - button "Toggle gravity" [ref=f4e343] [cursor=pointer]: 🚀
+  - link "WhatsApp" [ref=f4e344] [cursor=pointer]:
+    - /url: https://wa.me/5493434570645?text=Hola%20Cesar!%20Vi%20tu%20web%20ChapsTech%20y%20me%20interesa%20hablar%20sobre%20un%20proyecto.

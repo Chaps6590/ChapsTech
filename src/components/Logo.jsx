@@ -1,8 +1,12 @@
-const Logo = ({ size = 48 }) => {
+const Logo = ({ size = 38 }) => {
   return (
-    <span className="logo-text">
-      <span className="logo-chaps">Chaps</span><span className="logo-tech">Tech</span>
-    </span>
+    <img
+      src="/chapstech-v2.png"
+      alt="ChapsTech"
+      className="logo-img"
+      style={{ height: size }}
+      draggable="false"
+    />
   );
 };
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 const videoSources = ['/robot.webm', '/robot1.webm', '/robot2.webm'];
+const initialVideoIndex = Math.floor(Math.random() * videoSources.length);
 
 const Hero = () => {
   const canvasRef = useRef(null);
@@ -9,12 +10,12 @@ const Hero = () => {
   const videoRefB = useRef(null);
   const scheduleSwitchRef = useRef(null);
   const transitionTimeoutRef = useRef(null);
-  const activeIndexRef = useRef(Math.floor(Math.random() * videoSources.length));
+  const runTransitionRef = useRef(null);
+  const activeIndexRef = useRef(initialVideoIndex);
   const activeVideoRef = useRef(0);
   const [robotBop, setRobotBop] = useState('');
   const [isOnFire, setIsOnFire] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(activeIndexRef.current);
-  const [activeVideo, setActiveVideo] = useState(activeVideoRef.current);
+  const [activeVideo, setActiveVideo] = useState(0);
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef(null);
   const fireIntervalRef = useRef(null);
@@ -54,7 +55,7 @@ const Hero = () => {
     }
   }, [isOnFire, spawnFlame]);
 
-  const handleRobotTap = useCallback((e) => {
+  const handleRobotTap = useCallback(() => {
     // Un click apaga el fuego si está activo
     if (isOnFire) { setIsOnFire(false); clickCountRef.current = 0; return; }
 
@@ -128,9 +129,12 @@ const Hero = () => {
     return next;
   }, []);
 
-  const scheduleNextTransition = useCallback((transitionFn) => {
+  const scheduleNextTransition = useCallback(() => {
     clearTimeout(scheduleSwitchRef.current);
-    scheduleSwitchRef.current = window.setTimeout(transitionFn, 12000 + Math.random() * 8000);
+    scheduleSwitchRef.current = window.setTimeout(
+      () => runTransitionRef.current?.(),
+      12000 + Math.random() * 8000,
+    );
   }, []);
 
   const runTransition = useCallback(() => {
@@ -149,10 +153,13 @@ const Hero = () => {
       activeVideoRef.current = nextVideoNumber;
       setActiveVideo(nextVideoNumber);
       activeIndexRef.current = nextIndex;
-      setActiveIndex(nextIndex);
-      scheduleNextTransition(runTransition);
+      scheduleNextTransition();
     }, 850);
   }, [pickNextIndex, prepareVideo, scheduleNextTransition]);
+
+  useEffect(() => {
+    runTransitionRef.current = runTransition;
+  }, [runTransition]);
 
   useEffect(() => {
     const activeVideoEl = activeVideoRef.current === 0 ? videoRefA.current : videoRefB.current;
@@ -163,13 +170,13 @@ const Hero = () => {
       inactiveVideoEl.classList.remove('active');
     }
     activeVideoEl?.classList.add('active');
-    scheduleNextTransition(runTransition);
+    scheduleNextTransition();
 
     return () => {
       clearTimeout(scheduleSwitchRef.current);
       clearTimeout(transitionTimeoutRef.current);
     };
-  }, [pickNextIndex, prepareVideo, runTransition, scheduleNextTransition]);
+  }, [pickNextIndex, prepareVideo, scheduleNextTransition]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
