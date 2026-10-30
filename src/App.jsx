@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { startClickTracking } from './lib/analytics';
 import Header from './components/Header';
 import Intro from './components/Intro';
 import Hero from './components/Hero';
@@ -13,6 +14,8 @@ import './App.css';
 
 function App() {
   const [gravity, setGravity] = useState(true);
+
+  useEffect(() => startClickTracking(), []);
 
   const toggleGravity = () => {
     if (!gravity) {

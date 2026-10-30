@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Rendija } from '../lib/rendija';
+import { track } from '../lib/analytics';
 
 const SEEN_KEY = 'chapstech-intro-seen';
 
@@ -27,7 +28,7 @@ const Intro = () => {
       // con la puerta abierta, a los pocos instantes la página baja sola al hero
       alCambiar: (abierta) => {
         clearTimeout(timer);
-        if (abierta) timer = window.setTimeout(irAlHero, 1300);
+        if (abierta) { track('intro_puerta_abierta'); timer = window.setTimeout(irAlHero, 1300); }
       },
     });
     return () => { clearTimeout(timer); puerta.destroy(); };
@@ -58,7 +59,7 @@ const Intro = () => {
       </div>
       <div className="rd-pie">
         <p className="rd-pista">Tocá la puerta para entrar</p>
-        <button className="rd-saltar" type="button" onClick={irAlHero}>Saltar intro ↓</button>
+        <button className="rd-saltar" type="button" onClick={() => { track('intro_saltar'); irAlHero(); }}>Saltar intro ↓</button>
       </div>
     </section>
   );

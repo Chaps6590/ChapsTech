@@ -25,3 +25,8 @@ dist-ssr
 
 # Playwright MCP
 .playwright-mcp
+
+# Variables locales
+.env
+.env.*
+!.env.example

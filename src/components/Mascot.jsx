@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { createChromaKey } from '../lib/chromaKey';
+import { track } from '../lib/analytics';
 import { CLIP_BASE, CLIPS, SCENES, SERVICE_KEYS } from '../data/mascotScenes';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -140,7 +141,7 @@ const Mascot = () => {
       else if (current && current !== 'hidden') showBubble(SCENES[current]);
     };
     const onClose = (e) => { e.stopPropagation(); setClosed(true); };
-    const onBody = () => setClosed(!bubbleClosed);
+    const onBody = () => { track('mascot_click'); setClosed(!bubbleClosed); };
     closeRef.current.addEventListener('click', onClose);
     bodyRef.current.addEventListener('click', onBody);
 
@@ -175,6 +176,7 @@ const Mascot = () => {
         timer = 0;
         setClip(scene.clip);
         showBubble(scene);
+        track('mascot_escena', { escena: key });
       }, wait);
     };
 
