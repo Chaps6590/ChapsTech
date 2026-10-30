@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Header from './components/Header';
+import Intro from './components/Intro';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import TechStack from './components/TechStack';
@@ -63,6 +64,7 @@ function App() {
     <>
       <Header />
       <main>
+        <Intro />
         <Hero />
         <TechStack />
         <Services />
