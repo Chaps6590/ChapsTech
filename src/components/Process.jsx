@@ -50,7 +50,7 @@ const steps = [
 
 const Process = () => {
   return (
-    <section className="process section">
+    <section id="proceso" className="process section">
       <div className="container">
         <div className="section-header">
           <span className="section-badge">Metodología</span>
