@@ -1,10 +1,13 @@
 import Logo from './Logo';
+import { volverALaPuerta } from '../lib/intro';
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    // "Inicio" vuelve a la puerta de la intro
+    if (id === 'inicio') volverALaPuerta();
+    else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (

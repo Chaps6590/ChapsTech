@@ -19,7 +19,7 @@ const LEJOS = 700; // hasta dónde se dibuja el suelo (z)
 const proyecta = (x, y, z) => { const k = P / (P - z); return [OJO.x + (x - OJO.x) * k, OJO.y + (y - OJO.y) * k]; };
 
 export function Rendija(escenario, opciones) {
-  const o = Object.assign({ abierta: 84, entornada: 11, alCambiar: null }, opciones);
+  const o = Object.assign({ abierta: 84, entornada: 11, alCambiar: null, alEntrar: null }, opciones);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const puerta = escenario.querySelector('.rd-puerta');
   const lienzo = escenario.querySelector('.rd-luz');
@@ -130,7 +130,7 @@ export function Rendija(escenario, opciones) {
     const cambio = abierta !== (boton.getAttribute('aria-pressed') === 'true');
     meta = abierta ? o.abierta : (encima ? o.entornada : 0);
     boton.setAttribute('aria-pressed', String(abierta));
-    boton.setAttribute('aria-label', abierta ? 'Cerrar la puerta' : 'Abrir la puerta');
+    boton.setAttribute('aria-label', abierta ? (o.alEntrar ? 'Entrar al sitio' : 'Cerrar la puerta') : 'Abrir la puerta');
     anima();
     if (cambio && o.alCambiar) o.alCambiar(abierta);
   }
@@ -139,9 +139,11 @@ export function Rendija(escenario, opciones) {
   const alterna = () => { abierta = !abierta; decide(); };
   const entra = e => { if (e.pointerType === 'mouse') { encima = true; decide(); } };
   const sale = () => { encima = false; decide(); };
+  // con la puerta abierta, otro clic es pasar (si hay alEntrar); si no, cierra como siempre
+  const clic = () => { if (abierta && o.alEntrar) o.alEntrar(); else alterna(); };
   boton.addEventListener('pointerenter', entra);
   boton.addEventListener('pointerleave', sale);
-  boton.addEventListener('click', alterna);
+  boton.addEventListener('click', clic);
 
   // el escenario mide 1280 × 800: se escala para caber, con la puerta al centro
   function ajusta() {
@@ -158,7 +160,7 @@ export function Rendija(escenario, opciones) {
     removeEventListener('resize', ajusta);
     boton.removeEventListener('pointerenter', entra);
     boton.removeEventListener('pointerleave', sale);
-    boton.removeEventListener('click', alterna);
+    boton.removeEventListener('click', clic);
   }
   return { abre, cierra, alterna, destroy };
 }
