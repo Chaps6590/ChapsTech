@@ -14,6 +14,8 @@ void main() {
   vec2 uv = a_pos * 0.5 + 0.5;
   uv.y = 1.0 - uv.y;
   v_uv = u_crop.xy + uv * u_crop.zw;
+  // espejado: la mascota vive a la derecha de la pantalla y tiene que mirar hacia el contenido
+  v_uv.x = 1.0 - v_uv.x;
   gl_Position = vec4(a_pos, 0.0, 1.0);
 }`;
 
