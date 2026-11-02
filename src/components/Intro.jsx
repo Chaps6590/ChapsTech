@@ -98,9 +98,9 @@ const Intro = () => {
       gsap.set(robot, { x: 1010, y: 300, z: -250, rotation: -5 });
       vuelo = gsap.timeline({ onComplete: paraRobot })
         .to(robot, { autoAlpha: 1, duration: 0.06 }, 0)
-        .to(robot, { x: 170, duration: 0.8, ease: 'power1.inOut' }, 0)
-        .to(robot, { y: 255, duration: 0.4, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0)
-        .to(robot, { rotation: 4, duration: 0.8, ease: 'sine.inOut' }, 0)
+        .to(robot, { x: 170, duration: 1.4, ease: 'power1.inOut' }, 0)
+        .to(robot, { y: 255, duration: 0.7, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0)
+        .to(robot, { rotation: 4, duration: 1.4, ease: 'sine.inOut' }, 0)
         .to(robot, { autoAlpha: 0, duration: 0.06 }, '>-0.06');
     };
 
@@ -127,17 +127,17 @@ const Intro = () => {
       pistaRef.current.parentElement.style.opacity = '0';
 
       travesia = gsap.timeline({ onComplete: () => { entrando = false; } })
-        .to(zoom, { scale: escala, duration: 2, ease: 'power2.in' }, 0)
-        .to(flashRef.current, { opacity: 1, duration: 0.8, ease: 'power2.in' }, 1.2)
+        .to(zoom, { scale: escala, duration: 3.2, ease: 'power2.in' }, 0)
+        .to(flashRef.current, { opacity: 1, duration: 1.2, ease: 'power2.in' }, 2)
         .add(() => {
           // tapado por la luz: se salta a la página y la puerta vuelve a su sitio
           const y = hero.getBoundingClientRect().top + window.scrollY;
           window.scrollTo({ top: y, behavior: 'instant' });
           gsap.set(zoom, { clearProps: 'transform' });
           pistaRef.current.parentElement.style.opacity = '';
-        }, 2)
-        .fromTo(hero, { scale: 1.06, transformOrigin: '50% 35%' }, { scale: 1, duration: 1.8, ease: 'power3.out', clearProps: 'transform', immediateRender: false }, 2)
-        .to(flashRef.current, { opacity: 0, duration: 1.4, ease: 'power2.out' }, 2.05);
+        }, 3.2)
+        .fromTo(hero, { scale: 1.06, transformOrigin: '50% 35%' }, { scale: 1, duration: 2.4, ease: 'power3.out', clearProps: 'transform', immediateRender: false }, 3.2)
+        .to(flashRef.current, { opacity: 0, duration: 1.8, ease: 'power2.out' }, 3.25);
     };
 
     puerta = Rendija(escenarioRef.current, {
@@ -150,7 +150,7 @@ const Intro = () => {
           track('intro_puerta_abierta');
           delay = gsap.delayedCall(0.35, volar);
           // solo entra sola si la puerta sigue en pantalla (si el visitante ya se fue, no se lo trae de vuelta)
-          timer = window.setTimeout(() => { if (raiz.classList.contains('en-intro')) entrar(); }, 3200);
+          timer = window.setTimeout(() => { if (raiz.classList.contains('en-intro')) entrar(); }, 4200);
         }
       },
       alEntrar: entrar,
