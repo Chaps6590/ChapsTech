@@ -127,17 +127,17 @@ const Intro = () => {
       pistaRef.current.parentElement.style.opacity = '0';
 
       travesia = gsap.timeline({ onComplete: () => { entrando = false; } })
-        .to(zoom, { scale: escala, duration: 1.15, ease: 'power3.in' }, 0)
-        .to(flashRef.current, { opacity: 1, duration: 0.5, ease: 'power2.in' }, 0.65)
+        .to(zoom, { scale: escala, duration: 2, ease: 'power2.in' }, 0)
+        .to(flashRef.current, { opacity: 1, duration: 0.8, ease: 'power2.in' }, 1.2)
         .add(() => {
           // tapado por la luz: se salta a la página y la puerta vuelve a su sitio
           const y = hero.getBoundingClientRect().top + window.scrollY;
           window.scrollTo({ top: y, behavior: 'instant' });
           gsap.set(zoom, { clearProps: 'transform' });
           pistaRef.current.parentElement.style.opacity = '';
-        }, 1.15)
-        .fromTo(hero, { scale: 1.06, transformOrigin: '50% 35%' }, { scale: 1, duration: 1.2, ease: 'power3.out', clearProps: 'transform', immediateRender: false }, 1.15)
-        .to(flashRef.current, { opacity: 0, duration: 0.9, ease: 'power2.out' }, 1.2);
+        }, 2)
+        .fromTo(hero, { scale: 1.06, transformOrigin: '50% 35%' }, { scale: 1, duration: 1.8, ease: 'power3.out', clearProps: 'transform', immediateRender: false }, 2)
+        .to(flashRef.current, { opacity: 0, duration: 1.4, ease: 'power2.out' }, 2.05);
     };
 
     puerta = Rendija(escenarioRef.current, {
