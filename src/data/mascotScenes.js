@@ -3,6 +3,7 @@ export const CLIP_BASE = '/mascot/';
 export const CLIPS = {
   idle: 'idle.mp4',
   volando: 'volando.mp4',
+  vueloVelocidad: 'clip-09-vuelo-velocidad.mp4',   // el que cruza por detrás de la puerta (Intro.jsx)
   web: 'web.mp4',
   sistemas: 'sistemas.mp4',
   n8n: 'n8n.mp4',

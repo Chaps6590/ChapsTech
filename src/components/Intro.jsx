@@ -83,7 +83,7 @@ const Intro = () => {
     const paraRobot = () => { corriendo = false; cancelAnimationFrame(cuadroRobot); cuadroRobot = 0; video.pause(); };
     if (keyer) {
       keyer.resize(600, 642);
-      video.src = CLIP_BASE + CLIPS.volando;
+      video.src = CLIP_BASE + CLIPS.vueloVelocidad;
       video.load();
       gsap.set(robot, { autoAlpha: 0 });
     }
