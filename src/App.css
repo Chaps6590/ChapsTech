@@ -1148,119 +1148,252 @@
 }
 
 /* ═══════════════════════════════════════
-   INTRO · RENDIJA (Moxen, ver src/lib/rendija.js)
+   INTRO · LA PUERTA (ver src/components/Intro.jsx)
+   Dos fotos del mismo cuarto (puerta cerrada y vano abierto) que calzan al píxel,
+   la hoja que gira y, detrás, un cosmos que se mueve.
+   Solo se animan opacity y transform: lo compone la GPU.
 ═══════════════════════════════════════ */
-.rd-escena {
-  --rd-pared: #07070f;
-  --rd-marco: #11142a;
-  --rd-puerta: #161a36;
-  --rd-cuarto: #0e6a9a;            /* la habitación de atrás, encendida */
-  --rd-cuarto-suelo: #0a4a70;
-  --rd-luz: 120, 215, 255;         /* el color de la luz que sale (lo lee rendija.js) */
-  --rd-suave: rgba(255, 255, 255, .5);
+.pt-escena {
   position: relative;
   height: 100vh;
   height: 100svh;
   min-height: 560px;
   overflow: hidden;
-  display: grid;
-  place-items: center;
-  background: var(--rd-pared);
+  background: #05060f;
 }
-.rd-escena *, .rd-escena *::before, .rd-escena *::after { box-sizing: border-box; }
+.pt-escena *, .pt-escena *::before, .pt-escena *::after { box-sizing: border-box; }
 /* sin barra de navegación mientras se ve la puerta (la pone Intro.jsx) */
 .en-intro .header { opacity: 0; transform: translateY(-100%); pointer-events: none; }
 
-/* Todas las medidas en px del escenario de 1280 × 800: el vano va de
-   x 535 a 745 y de y 190 a 590; el ojo está en (640, 330). */
-.rd-escenario { position: absolute; left: 50%; top: 50%; width: 1280px; height: 800px; margin: -400px 0 0 -640px; transform-origin: 50% 50%; }
-.rd-mundo {
-  position: absolute; inset: 0; transform-style: preserve-3d;
-  perspective: 900px; perspective-origin: 640px 330px;
+/* el zoom de la entrada: la cámara atraviesa la puerta (Intro.jsx) */
+.pt-zoom { position: absolute; inset: 0; container-type: size; will-change: transform; }
+/* la foto, de 1344 × 752, cubre la pantalla centrada: la puerta queda siempre al medio.
+   --lw es su ancho; 1em es el 1 % de ese ancho: todo lo de dentro se mide con eso */
+.pt-lienzo {
+  --lw: max(100cqw, 100cqh * 1344 / 752);
+  position: absolute; left: 50%; top: 50%;
+  width: var(--lw); aspect-ratio: 1344 / 752;
+  transform: translate(-50%, -50%);
+  font-size: calc(var(--lw) / 100);
 }
-.rd-mundo > * { position: absolute; transform-style: preserve-3d; }
-.rd-pared {
-  left: -600px; top: -500px; width: 2480px; height: 1900px; background: var(--rd-pared);
-  /* el vano, recortado con una máscara */
-  -webkit-mask: linear-gradient(#000 0 0), linear-gradient(#000 0 0) 1135px 690px / 210px 400px no-repeat;
-  -webkit-mask-composite: xor;
-          mask: linear-gradient(#000 0 0) exclude, linear-gradient(#000 0 0) 1135px 690px / 210px 400px no-repeat;
+.pt-img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; pointer-events: none; }
+.pt-img-abierto { opacity: 0; will-change: opacity; }
+
+/* ── el vano: x 557–786, y 204–600 de la foto ── */
+.pt-vano, .pt-hoja-caja { position: absolute; left: 41.44%; top: 27.13%; width: 17.04%; height: 52.66%; }
+.pt-vano { overflow: hidden; background: #070314; contain: strict; }
+/* fuera de pantalla, el cosmos se queda quieto */
+.pt-vano * { animation-play-state: paused; }
+.en-intro .pt-vano * { animation-play-state: running; }
+
+/* la nebulosa: dos copias que derivan y giran en sentidos contrarios */
+.pt-nebulosa {
+  position: absolute; left: 50%; top: 50%; width: 46em; height: 46em; margin: -23em 0 0 -23em;
+  background: url(/intro/nebulosa.webp) center / cover;
+  animation: pt-deriva 26s ease-in-out infinite alternate; will-change: transform;
+}
+.pt-nebulosa-2 { opacity: .45; animation: pt-deriva-2 19s ease-in-out infinite alternate; }
+@keyframes pt-deriva {
+  from { transform: translate(-7em, 4em) rotate(-10deg) scale(1); }
+  to { transform: translate(7em, -5em) rotate(14deg) scale(1.3); }
+}
+@keyframes pt-deriva-2 {
+  from { transform: translate(6em, -6em) rotate(190deg) scale(1.35); }
+  to { transform: translate(-6em, 6em) rotate(160deg) scale(1); }
 }
 
-/* el grosor del muro, 26 px, con la luz de la habitación sobre él */
-.rd-jamba { background: linear-gradient(90deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 55%, var(--rd-marco))); }
-.rd-jamba-izq { left: 535px; top: 190px; width: 26px; height: 400px; transform-origin: 0 50%; transform: rotateY(90deg); }
-.rd-jamba-der { left: 719px; top: 190px; width: 26px; height: 400px; transform-origin: 100% 50%; transform: rotateY(-90deg); background: linear-gradient(270deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 55%, var(--rd-marco))); }
-.rd-dintel { left: 535px; top: 190px; width: 210px; height: 26px; transform-origin: 50% 0; transform: rotateX(-90deg); background: linear-gradient(180deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 40%, var(--rd-marco))); }
-.rd-umbral { left: 535px; top: 564px; width: 210px; height: 26px; transform-origin: 50% 100%; transform: rotateX(90deg); background: linear-gradient(0deg, var(--rd-marco), color-mix(in srgb, var(--rd-cuarto) 70%, var(--rd-marco))); }
-/* el marco: una moldura alrededor del vano */
-.rd-marco {
-  left: 517px; top: 172px; width: 246px; height: 418px; transform: translateZ(1px); pointer-events: none;
-  border: 18px solid var(--rd-marco); border-bottom: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 0 0 1px rgba(127, 127, 127, .08);
+/* las estrellas vienen hacia quien mira: tres capas que crecen y se relevan */
+.pt-estrellas {
+  position: absolute; inset: -20%;
+  background-image:
+    radial-gradient(circle, #fff 0 .07em, transparent .12em),
+    radial-gradient(circle, #cfe8ff 0 .05em, transparent .09em),
+    radial-gradient(circle, #ffd9f3 0 .09em, transparent .16em),
+    radial-gradient(circle, #fff 0 .04em, transparent .07em);
+  background-size: 5.3em 6.1em, 3.7em 4.3em, 9.1em 7.7em, 2.3em 2.9em;
+  background-position: 0 0, 1.7em 2.1em, 3.3em 1.1em, .9em .5em;
+  opacity: 0; animation: pt-viaje 5.4s linear infinite; will-change: transform, opacity;
+}
+.pt-estrellas-2 { animation-delay: -1.8s; background-position: 2.1em 3em, .4em 1em, 5.9em 4.2em, 1.5em 2.2em; }
+.pt-estrellas-3 { animation-delay: -3.6s; background-position: 3.9em 1.2em, 2.6em 3.3em, 1.2em 6em, .2em 1.6em; }
+@keyframes pt-viaje {
+  0% { transform: scale(.55); opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: scale(2.6); opacity: 0; }
 }
 
-/* La habitación de atrás: el fondo a 420 px y el suelo que llega hasta él. */
-.rd-cuarto-fondo {
-  left: 240px; top: -60px; width: 800px; height: 860px; transform: translateZ(-420px);
-  background: radial-gradient(50% 45% at 50% 40%, var(--rd-cuarto), color-mix(in srgb, var(--rd-cuarto) 70%, #020812));
-  display: grid; place-items: center;
+/* luceros: luces grandes que laten y flotan */
+.pt-lucero {
+  position: absolute; width: 5em; height: 5em; border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 4%, rgba(160, 220, 255, .85) 10%, rgba(120, 160, 255, .25) 30%, transparent 62%);
+  animation: pt-late 3.2s ease-in-out infinite alternate; will-change: transform, opacity;
 }
-/* el logo, corrido a la derecha: la puerta abierta tapa la izquierda */
-.rd-cuarto-fondo img { width: 236px; height: auto; margin: 0 0 40px 58px; user-select: none; }
-.rd-cuarto-suelo {
-  left: 240px; top: 170px; width: 800px; height: 420px; transform-origin: 50% 100%;
-  transform: translateZ(-3px) rotateX(90deg);     /* un pelo detrás de la pared: si no, su borde asoma por delante */
-  background: linear-gradient(0deg, var(--rd-cuarto-suelo), var(--rd-cuarto));
+.pt-lucero-1 { left: 8%; top: 12%; }
+.pt-lucero-2 {
+  left: 58%; top: 44%; width: 6.4em; height: 6.4em; animation-duration: 4.4s; animation-delay: -1.3s;
+  background: radial-gradient(circle, #fff 0 4%, rgba(255, 190, 235, .85) 10%, rgba(255, 110, 190, .25) 30%, transparent 62%);
 }
-
-/* la puerta: gira por la izquierda hacia dentro (rendija.js pone --rd-giro) */
-.rd-puerta {
-  left: 535px; top: 190px; width: 210px; height: 396px; transform-origin: 0 50%;
-  transform: translateZ(-26px) rotateY(var(--rd-giro, 0deg));
-  background: var(--rd-puerta); display: flex; flex-direction: column; gap: 18px; padding: 26px 24px;
-  box-shadow: inset 0 0 0 1px rgba(127, 127, 127, .08);
-}
-/* la cara de la puerta se apaga al girar: deja de mirar hacia nosotros */
-.rd-puerta::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--rd-apaga, 0); pointer-events: none; }
-.rd-tablero { flex: 1; border-radius: 2px; box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .45), inset -1px -1px 0 rgba(255, 255, 255, .06); }
-.rd-tablero:first-child { flex: .7; }
-.rd-pomo {
-  position: absolute; right: 20px; top: 208px; width: 15px; height: 15px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fafafa, #8c8c8c 55%, #3a3a3a); box-shadow: 0 2px 4px rgba(0, 0, 0, .6);
-}
-/* el canto, 8 px de grueso: se ilumina con la luz de dentro al abrir */
-.rd-canto {
-  position: absolute; left: 100%; top: 0; width: 8px; height: 100%; transform-origin: 0 50%; transform: rotateY(90deg);
-  background: color-mix(in srgb, var(--rd-cuarto) calc(var(--rd-ilumina, 0) * 80%), var(--rd-puerta));
+.pt-lucero-3 { left: 20%; top: 72%; width: 4em; height: 4em; animation-duration: 2.6s; animation-delay: -.7s; }
+@keyframes pt-late {
+  from { transform: translate(0, 0) scale(.55); opacity: .35; }
+  to { transform: translate(1.2em, -1.6em) scale(1.15); opacity: 1; }
 }
 
-/* la luz que sale, encima de todo: suma. Más grande que el escenario: llega hasta el borde de la pantalla */
-.rd-luz { position: absolute; left: -400px; top: -200px; width: 2080px; height: 1400px; pointer-events: none; mix-blend-mode: screen; }
-.rd-tirador {
-  position: absolute; left: 535px; top: 190px; width: 210px; height: 400px; padding: 0; border: 0; background: none;
-  cursor: pointer; -webkit-tap-highlight-color: transparent;
+/* estrellas fugaces: una cabeza brillante con su estela, que cruza y descansa */
+.pt-fugaz {
+  position: absolute; width: 9em; height: .16em; border-radius: 1em; opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(150, 215, 255, .55) 55%, #fff);
+  transform-origin: 0 50%;
+  animation: pt-fugaz 4s cubic-bezier(.3, 0, .6, 1) infinite; will-change: transform, opacity;
 }
-.rd-tirador:focus-visible { outline: 2px solid var(--rd-suave); outline-offset: 24px; }
+@keyframes pt-fugaz {
+  0% { transform: rotate(var(--giro)) translateX(-10em) scaleX(.3); opacity: 0; }
+  6% { opacity: 1; }
+  30% { transform: rotate(var(--giro)) translateX(26em) scaleX(1); opacity: 0; }
+  100% { transform: rotate(var(--giro)) translateX(26em) scaleX(1); opacity: 0; }
+}
 
-.rd-pie {
+/* ── la hoja: gira por la izquierda hacia quien mira (rotationY lo pone Intro.jsx) ── */
+.pt-hoja-caja { perspective: calc(var(--lw) * .85); perspective-origin: 50% 43%; pointer-events: none; }
+.pt-hoja { --grosor: .9em; position: absolute; inset: 0; transform-origin: 0 50%; transform-style: preserve-3d; will-change: transform; }
+.pt-cara {
+  position: absolute; inset: -1.5px; backface-visibility: hidden;   /* un pelo más grande que el vano: que el cosmos no asome por el borde */
+  background: url(/intro/hoja.webp) center / 100% 100%;
+}
+/* la cara que da al cuarto se va oscureciendo al girar (la opacidad la pone Intro.jsx) */
+.pt-sombra { position: absolute; inset: 0; background: #02030c; opacity: 0; }
+/* el dorso queda un grosor más atrás; al abrirse es el que se ve, bañado por la luz del cosmos */
+.pt-dorso { transform: rotateY(180deg) translateZ(var(--grosor)); background: none; }
+/* la foto va espejada: si no, al dar vuelta la hoja el picaporte queda del lado de la bisagra */
+.pt-dorso::before {
+  content: ""; position: absolute; inset: 0; transform: scaleX(-1);
+  background: url(/intro/hoja.webp) center / 100% 100%;
+}
+.pt-dorso::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(255, 120, 190, .34), rgba(120, 150, 255, .22) 60%, rgba(10, 10, 30, .35));
+}
+/* el canto: el grosor de la puerta, en el borde libre. Une las dos caras y recibe la luz de lleno */
+.pt-canto {
+  position: absolute; left: calc(100% + 1.5px); top: -1.5px; bottom: -1.5px; width: var(--grosor);
+  transform-origin: 0 50%; transform: rotateY(90deg);
+  background:
+    linear-gradient(90deg, rgba(8, 10, 30, .55), transparent 22%, transparent 70%, rgba(255, 255, 255, .28)),
+    linear-gradient(180deg, #8f9fd6, #c9a6dc 38%, #e2a3cf 55%, #8ea4e6 80%, #6f7fc0);
+}
+
+/* la luz que se cuela por debajo de la puerta cerrada: una línea viva y su reflejo en el piso mojado.
+   Late sola; al abrirse la puerta se apaga (Intro.jsx): la luz ya sale por el vano */
+.pt-rendija { position: absolute; left: 41.7%; top: 79.5%; width: 16.5%; height: .24em; pointer-events: none; }
+.pt-rendija::before, .pt-rendija::after { content: ""; position: absolute; animation: pt-respira 2.8s ease-in-out infinite alternate; will-change: opacity; }
+.pt-rendija::before {
+  inset: 0; border-radius: 1em;
+  background: linear-gradient(90deg, #ff4fa8, #ffd3ee 28%, #fff 50%, #cfe4ff 72%, #4f8dff);
+  box-shadow: 0 0 .5em #ff7ac8, 0 0 1.2em rgba(190, 120, 255, .9), 0 0 2.8em rgba(90, 140, 255, .7);
+}
+.pt-rendija::after {
+  left: -14%; right: -14%; top: 60%; height: 9em; animation-delay: -1.1s;
+  background:
+    radial-gradient(34% 100% at 30% 0, rgba(255, 90, 180, .5), transparent 72%),
+    radial-gradient(34% 100% at 70% 0, rgba(90, 140, 255, .5), transparent 72%),
+    radial-gradient(60% 55% at 50% 0, rgba(255, 220, 245, .42), transparent 75%);
+}
+@keyframes pt-respira { from { opacity: .6; } to { opacity: 1; } }
+
+/* ── la marca en tubos de neón, sobre el dintel. Arranca apagada: se ve el vidrio.
+   Con .is-neon (Intro.jsx) se enciende parpadeando, primero "Chaps" y después "Tech",
+   y recién entonces se abre la puerta. La luz es otra capa: solo se anima su opacity. ── */
+.pt-neon {
+  position: absolute; left: 50%; bottom: 78.7%; transform: translateX(-50%);
+  font-family: var(--font); font-weight: 900; font-size: 3.4em; line-height: 1; letter-spacing: -.005em; white-space: nowrap;
+  user-select: none; pointer-events: none;
+}
+/* los tubos siguen el contorno de las letras, con la tipografía del sitio */
+.pt-tubo { display: block; color: transparent; }
+.pt-tubo-apagado { -webkit-text-stroke: .034em rgba(150, 175, 215, .3); }
+.pt-tubo-luz { position: absolute; inset: 0; }
+.pt-luz-a, .pt-luz-b { display: inline-block; opacity: 0; will-change: opacity; }
+/* "Chaps": tubo blanco con halo azul. "Tech": celeste de la marca, bien saturado */
+.pt-luz-a {
+  -webkit-text-stroke: .04em #f4f9ff;
+  filter: drop-shadow(0 0 .04em #fff) drop-shadow(0 0 .2em #5aa8ff) drop-shadow(0 0 .65em rgba(30, 110, 255, .8));
+}
+.pt-luz-b {
+  color: rgba(0, 180, 216, .1); -webkit-text-stroke: .04em #0fc3ff;
+  filter: drop-shadow(0 0 .04em #29d4f0) drop-shadow(0 0 .2em #00a2ff) drop-shadow(0 0 .65em rgba(0, 100, 255, .9));
+}
+/* lo que el neón le presta a la pared y al dintel */
+.pt-resplandor {
+  position: absolute; left: 50%; top: 50%; width: 9em; height: 4.4em; transform: translate(-50%, -38%);
+  background: radial-gradient(closest-side, rgba(0, 150, 255, .4), rgba(20, 90, 255, .14) 55%, transparent);
+  opacity: 0; will-change: opacity;
+}
+.is-neon .pt-luz-a { animation: pt-enciende-a 1.5s linear .5s both, pt-zumbido 5.3s linear 2s infinite; }
+.is-neon .pt-luz-b { animation: pt-enciende-b 1.7s linear 1.2s both, pt-zumbido 4.1s linear 2.9s infinite; }
+.is-neon .pt-resplandor { animation: pt-enciende-b 1.7s linear 1.2s both; }
+@keyframes pt-enciende-a {
+  0% { opacity: 0; }
+  4%, 9% { opacity: .85; }
+  10%, 30% { opacity: 0; }
+  31%, 36% { opacity: 1; }
+  37%, 46% { opacity: .12; }
+  47%, 52% { opacity: .9; }
+  53%, 58% { opacity: .3; }
+  59%, 100% { opacity: 1; }
+}
+@keyframes pt-enciende-b {
+  0% { opacity: 0; }
+  6%, 10% { opacity: .7; }
+  11%, 38% { opacity: 0; }
+  39%, 42% { opacity: 1; }
+  43%, 50% { opacity: .1; }
+  51%, 55% { opacity: 1; }
+  56%, 68% { opacity: .2; }
+  69%, 73% { opacity: .95; }
+  74%, 78% { opacity: .45; }
+  79%, 100% { opacity: 1; }
+}
+/* ya encendido, cada tanto titila un instante */
+@keyframes pt-zumbido {
+  0%, 91% { opacity: 1; }
+  92% { opacity: .55; }
+  93% { opacity: 1; }
+  95% { opacity: .75; }
+  96%, 100% { opacity: 1; }
+}
+
+/* la zona que se toca: la puerta entera y un poco más */
+.pt-puerta {
+  position: absolute; left: 38.5%; top: 22%; width: 23%; height: 60%; padding: 0; border: 0; background: none;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.pt-puerta:focus-visible { outline: 2px solid rgba(255, 255, 255, .5); outline-offset: -6px; }
+
+.pt-pie {
   position: absolute; left: 0; right: 0; bottom: 1.8rem; z-index: 2;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
+  transition: opacity .5s ease;
 }
-.rd-pista { margin: 0; text-align: center; color: var(--rd-suave); font-size: .95rem; }
-.rd-saltar {
+/* la pista aparece cuando la puerta terminó de abrirse */
+.pt-pista { margin: 0; text-align: center; color: rgba(255, 255, 255, .7); font-size: .95rem; opacity: 0; transition: opacity .8s ease; text-shadow: 0 1px 10px rgba(0, 0, 0, .9); }
+.is-abierta .pt-pista { opacity: 1; }
+.pt-saltar {
   padding: 6px 14px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .04);
   color: rgba(255, 255, 255, .7); font: inherit; font-size: .8rem; cursor: pointer; transition: var(--transition);
 }
-.rd-saltar:hover { color: #fff; border-color: rgba(0, 207, 255, .6); }
+.pt-saltar:hover { color: #fff; border-color: rgba(0, 207, 255, .6); }
+/* durante la travesía solo queda la escena */
+.is-entrando .pt-pie { opacity: 0; }
+.is-entrando .pt-puerta { pointer-events: none; }
 
-/* el zoom de la entrada: la cámara atraviesa el vano (Intro.jsx) */
-.rd-zoom { position: absolute; inset: 0; will-change: transform; }
-.rd-flash {
+.pt-flash {
   position: fixed; inset: 0; z-index: 300; opacity: 0; pointer-events: none;
-  background: radial-gradient(circle at 50% 48%, #fff 0%, rgb(120, 215, 255) 40%, #0e6a9a 100%);
+  background: radial-gradient(circle at 50% 50%, #fff 0%, #ffc4ec 35%, #7aa8ff 70%, #2a3fb8 100%);
 }
-/* el robot que cruza por detrás de la puerta: vive dentro de la habitación (z lo pone Intro.jsx) */
-.rd-robot { left: 0; top: 0; width: 300px; height: 321px; pointer-events: none; }
-.rd-robot canvas { display: block; width: 100%; height: 100%; filter: drop-shadow(0 0 16px rgba(120, 215, 255, .55)); }
-.rd-video { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-vano *, .pt-rendija::before, .pt-rendija::after { animation: none; }
+  .is-neon .pt-luz-a, .is-neon .pt-luz-b, .is-neon .pt-resplandor { animation: none; opacity: 1; }
+  .pt-estrellas { opacity: .8; }
+}
